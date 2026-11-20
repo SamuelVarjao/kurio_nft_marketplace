@@ -1,4 +1,3 @@
-import { lazy, Suspense } from 'react'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { Toaster } from '@/components/ui/sonner'
 import { Footer } from '@/components/layout/Footer'
@@ -8,8 +7,6 @@ import { SessionEffects } from '@/app/SessionEffects'
 import { LiveRegion } from '@/lib/announce'
 import { RealtimeProvider } from '@/features/realtime/RealtimeProvider'
 import type { RouterContext } from '@/router'
-
-const MockPanel = import.meta.env.VITE_ENABLE_MOCKS !== 'false' ? lazy(() => import('@/mocks/panel/MockPanel')) : null
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootLayout,
@@ -34,11 +31,6 @@ function RootLayout() {
         <LiveRegion />
         <Toaster position="top-right" closeButton richColors={false} duration={3500} mobileOffset={{ top: 4, left: 8, right: 8 }} />
         <SessionEffects />
-        {MockPanel ? (
-          <Suspense fallback={null}>
-            <MockPanel />
-          </Suspense>
-        ) : null}
       </>
     </RealtimeProvider>
   )

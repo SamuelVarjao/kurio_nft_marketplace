@@ -1,8 +1,8 @@
 /**
  * API de controle da camada de mocks — `window.__KURIO_MOCKS__`.
  *
- * É o gatilho usado pelo Playwright (via `page.evaluate`) e pelo painel de
- * demonstração para disparar eventos e falhas SEM passar pela UI da
+ * É o gatilho usado pelo Playwright (via `page.evaluate`) e pelo console do
+ * navegador para disparar eventos e falhas SEM passar pela UI da
  * aplicação: as mudanças acontecem no "servidor" simulado e chegam ao app
  * pelas mesmas vias de produção (REST via MSW e eventos via socket.io-client).
  */
@@ -43,6 +43,22 @@ export const mockControl = {
     resetCounters()
     resetCheckoutMutation()
     resetOrderTimeout()
+  },
+  /**
+   * Reset completo para demonstração: restaura as fixtures, apaga sessão,
+   * carrinho do visitante e tentativas de checkout guardados no navegador e
+   * recarrega a página (o cenário escolhido é mantido).
+   */
+  resetAll() {
+    mockControl.reset()
+    try {
+      for (const key of Object.keys(localStorage))
+        if (key.startsWith('kurio:') && key !== 'kurio:mock-scenario') localStorage.removeItem(key)
+      for (const key of Object.keys(sessionStorage)) if (key.startsWith('kurio:')) sessionStorage.removeItem(key)
+    } catch {
+      /* storage indisponível */
+    }
+    location.reload()
   },
   failNext(route: RouteKey, status: number | 'network' = 500, times = 1) {
     failNext(route, status, times)

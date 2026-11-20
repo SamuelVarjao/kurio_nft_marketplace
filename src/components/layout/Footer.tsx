@@ -47,12 +47,14 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   },
 ]
 
+/** Sem perfis oficiais: cada rede abre a busca por "kurio nft". */
+const SOCIAL_QUERY = encodeURIComponent('kurio nft')
 const SOCIAL = [
-  { label: 'Facebook', Icon: Facebook },
-  { label: 'Instagram', Icon: Instagram },
-  { label: 'Twitter', Icon: Twitter },
-  { label: 'LinkedIn', Icon: Linkedin },
-  { label: 'YouTube', Icon: Youtube },
+  { label: 'Facebook', Icon: Facebook, href: `https://www.facebook.com/search/top?q=${SOCIAL_QUERY}` },
+  { label: 'Instagram', Icon: Instagram, href: `https://www.instagram.com/explore/search/keyword/?q=${SOCIAL_QUERY}` },
+  { label: 'Twitter', Icon: Twitter, href: `https://x.com/search?q=${SOCIAL_QUERY}` },
+  { label: 'LinkedIn', Icon: Linkedin, href: `https://www.linkedin.com/search/results/all/?keywords=${SOCIAL_QUERY}` },
+  { label: 'YouTube', Icon: Youtube, href: `https://www.youtube.com/results?search_query=${SOCIAL_QUERY}` },
 ]
 
 function FooterAnchor({ link }: { link: FooterLink }) {
@@ -162,15 +164,18 @@ export function Footer() {
             <div>
               <h2 className="mb-3 text-base font-bold">Redes sociais</h2>
               <ul className="flex gap-2">
-                {SOCIAL.map(({ label, Icon }) => (
+                {SOCIAL.map(({ label, Icon, href }) => (
                   <li key={label}>
-                    <span
-                      className="grid size-8 place-items-center rounded-sm border border-primary/50 text-primary opacity-80"
-                      title={`${label} (perfil oficial indisponível na demonstração)`}
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="grid size-8 place-items-center rounded-sm border border-primary/50 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                      title={`Buscar "kurio nft" no ${label}`}
                     >
                       <Icon className="size-4" aria-hidden />
-                      <span className="sr-only">{label} (indisponível na demonstração)</span>
-                    </span>
+                      <span className="sr-only">Buscar Kurio NFT no {label} (abre em nova aba)</span>
+                    </a>
                   </li>
                 ))}
               </ul>

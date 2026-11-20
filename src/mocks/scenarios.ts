@@ -7,7 +7,7 @@
  *   3. `VITE_MOCK_SCENARIO` (build)
  *   4. `default`
  *
- * Em runtime: `window.__KURIO_MOCKS__.setScenario(id)` ou o painel de mocks.
+ * Em runtime: `window.__KURIO_MOCKS__.setScenario(id)` (console ou Playwright).
  */
 export type RouteKey =
   | 'auth'

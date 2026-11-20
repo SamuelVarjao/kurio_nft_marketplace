@@ -207,7 +207,7 @@ export function buildCatalog(): NftDetail[] {
 
 export const SOLD_OUT_NFT_INDEX = 20
 
-/** Senha de todos os usuários fictícios: Kurio2026! (armazenada apenas como hash). */
+/** Usuários fictícios — a senha (documentada no README) existe aqui apenas como hash SHA-256 com sal. */
 export const FIXTURE_USERS = [
   {
     id: 'usr-ana',

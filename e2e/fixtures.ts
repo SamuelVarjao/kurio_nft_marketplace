@@ -1,6 +1,10 @@
 import { test as base, expect, type Page } from '@playwright/test'
 
-export const PASSWORD = 'Kurio2026!'
+/**
+ * Senha dos usuários fictícios. Não fica versionada no código: vem de
+ * `E2E_PASSWORD` (ambiente ou `.env.e2e.local`, ignorado pelo git). Ver README.
+ */
+export const PASSWORD = process.env.E2E_PASSWORD ?? ''
 export const ANA = { email: 'ana@kurio.test', name: 'Ana Colecionadora' }
 export const BRUNO = { email: 'bruno@kurio.test', name: 'Bruno Nômade' }
 
@@ -17,7 +21,6 @@ export const test = base.extend<Options>({
     await page.addInitScript((s) => {
       if (!sessionStorage.getItem('__e2e_init')) {
         localStorage.setItem('kurio:mock-scenario', s)
-        localStorage.setItem('kurio:mock-panel', 'hidden')
         sessionStorage.setItem('__e2e_init', '1')
       }
     }, scenario)
@@ -52,6 +55,7 @@ export async function gotoReady(page: Page, url: string) {
 }
 
 export async function login(page: Page, email = ANA.email, redirect?: string) {
+  if (!PASSWORD) throw new Error('Defina E2E_PASSWORD com a senha fictícia do README (ou crie .env.e2e.local).')
   await gotoReady(page, redirect ? `/entrar?redirect=${encodeURIComponent(redirect)}` : '/entrar')
   const dialog = page.getByRole('dialog')
   await dialog.getByPlaceholder('E-mail').fill(email)

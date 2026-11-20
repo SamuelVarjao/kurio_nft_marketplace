@@ -116,7 +116,7 @@ export function emitOrderUpdated(order: Order) {
   return event
 }
 
-/* ------------------------------------------------ controles (testes/painel) */
+/* ---------------------------------------------- controles (testes/console) */
 
 export const realtimeControl = {
   /** reenvia o último evento exatamente igual (mesmo eventId) */

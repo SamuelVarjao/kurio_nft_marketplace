@@ -1,5 +1,12 @@
 import { defineConfig, devices } from '@playwright/test'
 
+// senha fictícia dos testes: E2E_PASSWORD no ambiente ou em .env.e2e.local (não versionado)
+try {
+  process.loadEnvFile('.env.e2e.local')
+} catch {
+  /* arquivo opcional */
+}
+
 const PORT = 4173
 const baseURL = `http://localhost:${PORT}`
 
@@ -46,6 +53,6 @@ export default defineConfig({
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 240_000,
-    env: { VITE_ENABLE_MOCKS: 'true', VITE_MOCK_PANEL: 'false' },
+    env: { VITE_ENABLE_MOCKS: 'true' },
   },
 })

@@ -1,4 +1,4 @@
-import { ANA, BRUNO, expect, login, test } from './fixtures'
+import { ANA, BRUNO, expect, login, PASSWORD, test } from './fixtures'
 
 // PNG 1x1 válido
 const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64')
@@ -37,7 +37,7 @@ test.describe('Perfil e carteiras', () => {
     await page.getByLabel('Confirmar nova senha').fill('NovaSenha2027')
     await page.getByTestId('profile-save').click()
     await expect(page.locator('#conteudo').getByRole('alert').filter({ hasText: 'Senha atual incorreta' })).toBeVisible()
-    await page.getByLabel('Senha atual').fill('Kurio2026!')
+    await page.getByLabel('Senha atual').fill(PASSWORD)
     await page.getByTestId('profile-save').click()
     await expect(page.getByTestId('live-polite')).toContainText('Senha alterada')
   })
