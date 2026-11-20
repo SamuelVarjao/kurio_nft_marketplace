@@ -13,6 +13,40 @@ Setup
 
 Requer Node ≥ 20.
 
+1. Instale as dependências:
+
+```powershell
+npm ci
+```
+
+2. Rode em modo de desenvolvimento:
+
+```powershell
+npm run dev
+```
+
+3. Abra <http://localhost:5173>. Os mocks já vêm ativos: não há backend a configurar.
+
+Comandos
+
+| Comando | O que faz |
+| --- | --- |
+| `npm run dev` | Desenvolvimento com mocks (MSW) e HMR |
+| `npm run build` | Typecheck (`tsc -b`) e build de produção em `dist/` (mocks incluídos) |
+| `npm run preview` | Serve o build em <http://localhost:4173> |
+| `npm run typecheck` | Verificação de tipos |
+| `npm run lint` | ESLint |
+| `npm run test:e2e` | Playwright (faz o build e sobe o preview automaticamente) |
+| `npm run test:e2e:update` | Regenera as baselines de regressão visual |
+| `npm run test:e2e:report` | Abre o relatório HTML (`playwright-report/`) |
+| `npm run lighthouse` | Auditoria Lighthouse (rode `npm run build` antes) |
+
+Na primeira execução dos testes, instale o navegador:
+
+```powershell
+npx playwright install chromium
+```
+
 Testes
 
 Os testes fazem login com os usuários fictícios, mas a senha não fica no código. Crie um arquivo `.env.e2e.local` na raiz com a senha da seção:
